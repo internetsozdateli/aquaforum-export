@@ -48,5 +48,5 @@ coverage.xml
 
 # Environment variables
 .env
-prices/wr/
+prices/
 test.xls

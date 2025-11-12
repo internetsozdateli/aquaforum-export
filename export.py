@@ -1,5 +1,6 @@
 import dbconf
 import load_wr
+import load_santi
 import os
 import xlrd
 import xlwt
@@ -40,5 +41,8 @@ models = dbconf.get_site_models()
 
 #проверяем, есть ли обновления прайс-листа и запускаем обработку при необходимости
 if load_wr.ready():
-    wr = load_wr.load_wr()
-    save_data_to_xls('test.xls', 'WW', wr)
+    data = load_wr.load_wr()
+    save_data_to_xls('test.xls', 'WW', data)
+
+data = load_santi.load_santi()
+save_data_to_xls('test.xls', 'SantiLine', data)
