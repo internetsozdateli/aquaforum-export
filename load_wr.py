@@ -29,12 +29,16 @@ def extract_remains(filepath):
         if len(row) < 4:
             continue  # пропускаем строки с недостаточным количеством ячеек
         try:
-            product_id = int(float(row[0]))
-            remain = float(row[3])
+            product_id = int(row[0])
         except ValueError:
-            continue  # если ID некорректный или не задана цена — пропускаем
+            continue  # если ID некорректный - пропускаем
 
-        result[f"WR{product_id}"] = round(remain)
+        try:
+            amount = int(row[3])
+        except ValueError:
+            amount = row[3].strip()
+
+        result[f"WR{product_id}"] = amount
 
     return result
 
@@ -80,7 +84,7 @@ def process_xls_file(filepath):
                     product_id = int(float(first_cell))
                     price = float(row[4])
                 except ValueError:
-                    continue  # если ID некорректный или не задана цена — пропускаем
+                    continue  # если ID некорректный или не задана цена - пропускаем
 
                 p_id = f"WR{product_id}"
 
@@ -88,7 +92,6 @@ def process_xls_file(filepath):
                      percent = price_rules[brand][category] if category in price_rules[brand] else price_rules[brand]['default']
                      mult = (100 + percent) / 100
                 else:
-                     percent = 0
                      mult = 1
 
                 price_opt = round(price * mult)
@@ -101,7 +104,7 @@ def process_xls_file(filepath):
                     "name"     : second_cell,
                     "pr_opt"   : round(price_opt),
                     "pr_ret"   : round(price),
-                    "quantity" : remains[p_id] if p_id in remains else 0,
+                    "quantity" : remains[p_id] if p_id in remains else '-',
                     "promo"    : str(row[5]).strip() if len(row) > 5 else ''
                 })
                 continue

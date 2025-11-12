@@ -1,4 +1,5 @@
 import dbconf
+import load_aquanet
 import load_wr
 import load_santi
 import os
@@ -9,7 +10,7 @@ from xlutils.copy import copy
 def clear_sheet_content(sheet, max_rows=10000, max_cols=9):
     for row in range(1, max_rows):
         for col in range(max_cols):
-            sheet.write(row, col, '')  # перезаписываем ячейку пустым значением
+            sheet.write(row, col, "")  # перезаписываем ячейку пустым значением
 
 def save_data_to_xls(filepath, sheet_name, data_list):
     # Заголовки — ключи из первого словаря
@@ -44,5 +45,13 @@ if load_wr.ready():
     data = load_wr.load_wr()
     save_data_to_xls('test.xls', 'WW', data)
 
-data = load_santi.load_santi()
-save_data_to_xls('test.xls', 'SantiLine', data)
+if load_santi.ready():
+    data = load_santi.load_santi()
+    save_data_to_xls('test.xls', 'SantiLine', data)
+
+if load_aquanet.ready():
+    data = load_aquanet.load_aquanet_v()
+    data.extend(load_aquanet.load_aquanet_m())
+    save_data_to_xls('test.xls', 'Aquanet', data)
+
+

@@ -24,14 +24,18 @@ def extract_remains(filepath):
             continue  # пропускаем строки с недостаточным количеством ячеек
         try:
             product_id = row[0].replace(" ", "")
-            remain = float(row[2])
         except ValueError:
             continue  # если не задан остаток — пропускаем
+
+        try:
+            amount = int(float(row[2]))
+        except ValueError:
+            amount = row[2].strip()
 
         if product_id == "":
             continue
 
-        result[product_id] = round(remain)
+        result[product_id] = amount
 
     return result
 
