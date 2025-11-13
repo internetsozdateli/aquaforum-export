@@ -1,5 +1,6 @@
 import dbconf
 import load_aquanet
+import load_rgw
 import load_wr
 import load_santi
 import os
@@ -53,5 +54,9 @@ if load_aquanet.ready():
     data = load_aquanet.load_aquanet_v()
     data.extend(load_aquanet.load_aquanet_m())
     save_data_to_xls('test.xls', 'Aquanet', data)
+
+if load_rgw.ready():
+    data = load_rgw.load_rgw()
+    save_data_to_xls('test.xls', 'RGW', data)
 
 

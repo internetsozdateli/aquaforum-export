@@ -42,14 +42,6 @@ def extract_remains(filepath):
 
     return result
 
-remains = extract_remains('./prices/wr/remains.xls')
-price_rules = {
-    'RIVER'      : load_dict('./prices/wr/river.json'),
-    'WELTWASSER' : load_dict('./prices/wr/weltwasser.json'),
-    'МОНОМАХ'    : load_dict('./prices/wr/monomax.json'),
-    'WEMOR'      : load_dict('./prices/wr/wemor.json'),
-}
-
 def contains_cyrillic(text):
     return bool(re.match(r'^[А-Яа-яЁё]', text))
 
@@ -61,6 +53,13 @@ def process_xls_file(filepath):
 
     # Открываем файл
     workbook = xlrd.open_workbook(filepath)
+    remains = extract_remains('./prices/wr/remains.xls')
+    price_rules = {
+        'RIVER': load_dict('./prices/wr/river.json'),
+        'WELTWASSER': load_dict('./prices/wr/weltwasser.json'),
+        'МОНОМАХ': load_dict('./prices/wr/monomax.json'),
+        'WEMOR': load_dict('./prices/wr/wemor.json'),
+    }
 
     # Проходим по всем листам
     for sheet in workbook.sheets():
@@ -120,7 +119,7 @@ def process_xls_file(filepath):
 
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     l = len(result)
-    print(f"{now} Обновлен прайс wr, получено {l} строк")
+    print(f"{now} Обработан прайс wr, получено {l} строк")
     return result
 
 def load_wr():

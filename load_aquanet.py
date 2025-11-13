@@ -111,7 +111,7 @@ def process_xls_file_v(filepath):
 
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     l = len(result)
-    print(f"{now} Обновлен прайс aquanet (ванны), получено {l} строк")
+    print(f"{now} Обработан прайс aquanet (ванны), получено {l} строк")
     return result
 
 
@@ -160,7 +160,7 @@ def process_xls_file_m(filepath):
 
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     l = len(result)
-    print(f"{now} Обновлен прайс aquanet (ванны), получено {l} строк")
+    print(f"{now} Обработан прайс aquanet (мебель), получено {l} строк")
     return result
 
 def load_aquanet_v():

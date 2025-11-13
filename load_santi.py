@@ -86,7 +86,7 @@ def process_xls_file(filepath):
 
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     l = len(result)
-    print(f"{now} Обновлен прайс santiline, получено {l} строк")
+    print(f"{now} Обработан прайс santiline, получено {l} строк")
     return result
 
 
