@@ -1,4 +1,5 @@
 import dbconf
+import load_ab
 import load_aquanet
 import load_rgw
 import load_wr
@@ -39,16 +40,14 @@ def save_data_to_xls(filepath, sheet_name, data_list):
 
     book.save(filepath)
 
-models = dbconf.get_site_models()
+#models = dbconf.get_site_models()
 
 #проверяем, есть ли обновления прайс-листа и запускаем обработку при необходимости
 if load_wr.ready():
-    data = load_wr.load_wr()
-    save_data_to_xls('test.xls', 'WW', data)
+    save_data_to_xls('test.xls', 'WW', load_wr.load_wr())
 
 if load_santi.ready():
-    data = load_santi.load_santi()
-    save_data_to_xls('test.xls', 'SantiLine', data)
+    save_data_to_xls('test.xls', 'SantiLine', load_santi.load_santi())
 
 if load_aquanet.ready():
     data = load_aquanet.load_aquanet_v()
@@ -56,7 +55,9 @@ if load_aquanet.ready():
     save_data_to_xls('test.xls', 'Aquanet', data)
 
 if load_rgw.ready():
-    data = load_rgw.load_rgw()
-    save_data_to_xls('test.xls', 'RGW', data)
+    save_data_to_xls('test.xls', 'RGW',  load_rgw.load_rgw())
+
+if load_ab.ready():
+    save_data_to_xls('test.xls', 'Allen Brau', load_ab.load_allenbrau())
 
 

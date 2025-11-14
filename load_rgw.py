@@ -61,7 +61,6 @@ def process_xls_file(filepath):
     fp_flag = True  # первая вкладка с оглавлением, пропускаем ее
     category = ""
     name = ""
-    c = {}
 
     for sheet in workbook.sheets():
         if fp_flag:
@@ -75,7 +74,6 @@ def process_xls_file(filepath):
             c_tmp, product_id = row[0].strip(), row[2].strip()
             if c_tmp != "" and product_id == "":
                 category = c_tmp
-                c[category] = "1"
                 continue
             elif (c_tmp != "" and product_id != "") or (c_tmp == "" and product_id == ""):
                 continue
@@ -87,8 +85,11 @@ def process_xls_file(filepath):
 
             name = row[1].strip() if row[1].strip() else name
 
+            if not product_id in prices:
+                continue
+
             try:
-                price_ret = float(prices[product_id]) if product_id in prices else 0
+                price_ret = float(prices[product_id])
 
                 # очищаем название категории и получаем оптовую скидку
                 c_clean = category.replace("  "," ")

@@ -1,0 +1,155 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <h1>Генератор прайс-листа</h1>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    {% if success %}
+    <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Прайс-листы поставщиков</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-wr_prices">Цены для WELTWASSER</label>
+            <div class="col-sm-10">
+              <input type="file" name="wr_prices" value="" placeholder="Укажите файл с ЦЕНАМИ" id="input-wr_prices" class="form-control" />
+              {% if error_wr_prices %}
+              <div class="text-danger">{{ error_wr_prices }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-wr_remains">Остатки для WELTWASSER</label>
+            <div class="col-sm-10">
+              <input type="file" name="wr_remains" value="" placeholder="Укажите файл с ОСТАТКАМИ" id="input-wr_remains" class="form-control" />
+              {% if error_wr_remains %}
+              <div class="text-danger">{{ error_wr_remains }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-aquanet_prices_m">Цены для Aquanet (Мебель)</label>
+            <div class="col-sm-10">
+              <input type="file" name="aquanet_prices_m" value="" placeholder="Укажите файл с ЦЕНАМИ НА МЕБЕЛЬ" id="input-aquanet_prices_m" class="form-control" />
+              {% if error_aquanet_prices_m %}
+                <div class="text-danger">{{ error_aquanet_prices_m }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-aquanet_remains_m">Остатки для Aquanet (Мебель)</label>
+            <div class="col-sm-10">
+              <input type="file" name="aquanet_remains_m" value="" placeholder="Укажите файл с ОСТАТКАМИ МЕБЕЛИ" id="input-aquanet_remains_m" class="form-control" />
+              {% if error_aquanet_remains_m %}
+                <div class="text-danger">{{ error_aquanet_remains_m }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-aquanet_prices_v">Цены для Aquanet (Ванны)</label>
+            <div class="col-sm-10">
+              <input type="file" name="aquanet_prices_v" value="" placeholder="Укажите файл с ЦЕНАМИ НА ВАННЫ" id="input-aquanet_prices_v" class="form-control" />
+              {% if error_aquanet_prices_v %}
+                <div class="text-danger">{{ error_aquanet_prices_v }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-aquanet_remains_v">Остатки для Aquanet (Ванны)</label>
+            <div class="col-sm-10">
+              <input type="file" name="aquanet_remains_v" value="" placeholder="Укажите файл с ОСТАТКАМИ ВАННЫ" id="input-aquanet_remains_v" class="form-control" />
+              {% if error_aquanet_remains_v %}
+                <div class="text-danger">{{ error_aquanet_remains_v }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-ab_price_ob">Цены для Allen Brau (общий)</label>
+            <div class="col-sm-10">
+              <input type="file" name="ab_price_ob" value="" placeholder="Укажите файл с ЦЕНАМИ" id="input-ab_price_ob" class="form-control" />
+              {% if error_ab_price_ob %}
+                <div class="text-danger">{{ error_ab_price_ob }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-ab_price_sm">Цены для Allen Brau (смесители)</label>
+            <div class="col-sm-10">
+              <input type="file" name="ab_price_sm" value="" placeholder="Укажите файл с ЦЕНАМИ" id="input-ab_price_sm" class="form-control" />
+              {% if error_ab_price_sm %}
+                <div class="text-danger">{{ error_ab_price_sm }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-ab_remains">Остатки для Allen Brau</label>
+            <div class="col-sm-10">
+              <input type="file" name="ab_remains" value="" placeholder="Укажите файл с ОСТАТКАМИ" id="input-ab_remains" class="form-control" />
+              {% if error_ab_remains %}
+                <div class="text-danger">{{ error_ab_remains }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-rgw_prices">Цены для RGW</label>
+            <div class="col-sm-10">
+              <input type="file" name="rgw_prices" value="" placeholder="Укажите файл с ЦЕНАМИ" id="input-rgw_prices" class="form-control" />
+              {% if error_rgw_prices %}
+                <div class="text-danger">{{ error_rgw_prices }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-rgw_remains">Остатки для RGW</label>
+            <div class="col-sm-10">
+              <input type="file" name="rgw_remains" value="" placeholder="Укажите файл с ОСТАТКАМИ" id="input-rgw_remains" class="form-control" />
+              {% if error_rgw_remains %}
+                <div class="text-danger">{{ error_rgw_remains }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-santi_prices">Цены для Santiline</label>
+            <div class="col-sm-10">
+              <input type="file" name="santi_prices" value="" placeholder="Укажите файл с ЦЕНАМИ" id="input-santi_prices" class="form-control" />
+              {% if error_santi_prices %}
+                <div class="text-danger">{{ error_santi_prices }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-santi_remains">Остатки для Santiline</label>
+            <div class="col-sm-10">
+              <input type="file" name="santi_remains" value="" placeholder="Укажите файл с ОСТАТКАМИ" id="input-santi_remains" class="form-control" />
+              {% if error_santi_remains %}
+                <div class="text-danger">{{ error_santi_remains }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

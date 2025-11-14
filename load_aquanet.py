@@ -5,9 +5,8 @@ import os
 from datetime import datetime
 
 def ready():
-    if os.path.isfile('./prices/aquanet-v/ready_flag') and os.path.isfile('./prices/aquanet-m/ready_flag'):
-        os.remove('./prices/aquanet-v/ready_flag')
-        os.remove('./prices/aquanet-m/ready_flag')
+    if os.path.isfile('./prices/aquanet/ready_flag'):
+        os.remove('./prices/aquanet/ready_flag')
         return True
     else:
         return False
@@ -66,8 +65,8 @@ def extract_prices(filepath):
 def process_xls_file_v(filepath):
     result = []
 
-    remains = extract_remains('./prices/aquanet-v/remains.xls')
-    price_rules = load_dict('./prices/aquanet-v/rules.json')
+    remains = extract_remains('./prices/aquanet/remains_v.xls')
+    price_rules = load_dict('./prices/aquanet/rules_v.json')
 
     # Открываем файл
     workbook = xlrd.open_workbook(filepath)
@@ -118,8 +117,8 @@ def process_xls_file_v(filepath):
 def process_xls_file_m(filepath):
     result = []
 
-    prices = extract_prices('./prices/aquanet-m/prices.xls')
-    price_rules = load_dict('./prices/aquanet-m/rules.json')
+    prices = extract_prices('./prices/aquanet/prices_m.xls')
+    price_rules = load_dict('./prices/aquanet/rules_m.json')
 
     # Открываем файл
     workbook = xlrd.open_workbook(filepath)
@@ -148,7 +147,7 @@ def process_xls_file_m(filepath):
             price_opt = round(price_ret * mult)
 
             result.append({
-                "id"       : str(product_id),
+                "id"       : 'AN' + str(product_id),
                 "model"    : row[4].strip(),
                 "category" : category,
                 "brand"    : row[9].strip(),
@@ -164,7 +163,7 @@ def process_xls_file_m(filepath):
     return result
 
 def load_aquanet_v():
-    return process_xls_file_v('./prices/aquanet-v/prices.xls')
+    return process_xls_file_v('./prices/aquanet/prices_v.xls')
 
 def load_aquanet_m():
-    return process_xls_file_m('./prices/aquanet-m/remains.xls')
+    return process_xls_file_m('./prices/aquanet/remains_m.xls')
